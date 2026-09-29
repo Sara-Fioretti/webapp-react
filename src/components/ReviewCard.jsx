@@ -1,5 +1,5 @@
-const ReviewCard = ({ review }) => {
-    const { id, text, vote, name } = review
+function ReviewCard  ({ id, text, vote, name })  {
+    
     return (
         <div key={id} className="card">
             <div className="card-body">
