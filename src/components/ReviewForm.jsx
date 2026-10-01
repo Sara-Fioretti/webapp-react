@@ -41,7 +41,7 @@ function ReviewForm({ movie_id, reloadReviews }) {
     }
 
     return (
-        <div className="border border-success rounded">
+        <div className="border border-success rounded mx-3">
             <h4 className="text-success"><strong>Lascia una recensione</strong></h4>
             <br />
             {

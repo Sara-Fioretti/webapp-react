@@ -1,16 +1,17 @@
 import { Link } from "react-router-dom";
 
-function MovieCard({ id, title, director, genre, release_year, abstract, image })  {
+function MovieCard({ id, title, director, genre, release_year, abstract, image }) {
 
     return (
-        <div className="card" style={{width: "18rem"}}>
+        <div className="card" style={{ width: "18rem" }}>
             {image && <img src={image} className="card-img-top" alt="..." />}
             <div className="card-body">
-                <h3 className="card-title text-danger"><strong>{title}</strong></h3>
-                <h5>Director: {director || "unknown"}</h5>
-                <span>Genre: <em>{genre}</em></span>
+                <h3 className="card-title text-primary"><strong>{title}</strong></h3>
+                <h6>Director: <em>{director || "unknown"}</em></h6>
+                <p>Genre: <em>{genre}</em></p>
+                <p>Release year: <em>{release_year}</em></p>
+                <br />
                 <p className="card-text">{abstract}</p>
-                <span>Release year: {release_year}</span>
                 <br />
                 <Link to={`movies/${id}`} className="btn btn-primary">See more</Link>
             </div>
