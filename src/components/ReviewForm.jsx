@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 
 function ReviewForm({ movie_id, reloadReviews }) {
     const apiUrl = `http://localhost:3000/api/movies/${movie_id}/reviews`
@@ -8,6 +9,8 @@ function ReviewForm({ movie_id, reloadReviews }) {
     //FUNZIONE per onSubmit
     const handleSubmit = (e) => {
         e.preventDefault();
+         console.log("Tentativo di invio a:", apiUrl); // <--- AGGIUNGI QUESTO
+    console.log("Dati inviati:", formData); 
         //Chiamata api
         axios.post(apiUrl, formData, { headers: { 'Content-Type': 'application/json' } })
             .then(() => {
@@ -31,7 +34,7 @@ function ReviewForm({ movie_id, reloadReviews }) {
         <div>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                    <label for="exampleInputEmail1" className="form-label">Author</label>
+                    <label htmlFor="exampleInputEmail1" className="form-label">Author</label>
                     <input
                         type="text"
                         name="name"
@@ -40,7 +43,7 @@ function ReviewForm({ movie_id, reloadReviews }) {
                         onChange={setFieldValue } />
                 </div>
                 <div className="mb-3">
-                    <label for="exampleInputPassword1" className="form-label">Review</label>
+                    <label htmlFor="exampleInputPassword1" className="form-label">Review</label>
                     <input
                         type="text"
                         name="text"
@@ -49,7 +52,7 @@ function ReviewForm({ movie_id, reloadReviews }) {
                         onChange={setFieldValue } />
                 </div>
                 <div className="mb-3">
-                    <label for="exampleInputPassword1" className="form-label">Vote</label>
+                    <label htmlFor="exampleInputPassword1" className="form-label">Vote</label>
                     <input
                         type="number"
                         value={formData.vote}
