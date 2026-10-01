@@ -1,0 +1,70 @@
+import { useState } from "react";
+
+function ReviewForm({ movie_id, reloadReviews }) {
+    const apiUrl = `http://localhost:3000/api/movies/${movie_id}/reviews`
+    const initialValues = { name: "Anonymous", text: "", vote: 1 }
+    const [formData, setFormData] = useState(initialValues)
+
+    //FUNZIONE per onSubmit
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        //Chiamata api
+        axios.post(apiUrl, formData, { headers: { 'Content-Type': 'application/json' } })
+            .then(() => {
+                setFormData(initialValues);
+                reloadReviews()
+            })
+            .catch(err=>{
+                console.error(err)
+            })
+    }
+//FUNZIONE per onChange
+    const setFieldValue = (e)=>{
+        const {value, name}=e.target;
+        setFormData({
+            ...formData,
+            [name]:value
+        })
+    }
+    
+    return (
+        <div>
+            <form onSubmit={handleSubmit}>
+                <div className="mb-3">
+                    <label for="exampleInputEmail1" className="form-label">Author</label>
+                    <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        className="form-control"
+                        onChange={setFieldValue } />
+                </div>
+                <div className="mb-3">
+                    <label for="exampleInputPassword1" className="form-label">Review</label>
+                    <input
+                        type="text"
+                        name="text"
+                        value={formData.text}
+                        className="form-control"
+                        onChange={setFieldValue } />
+                </div>
+                <div className="mb-3">
+                    <label for="exampleInputPassword1" className="form-label">Vote</label>
+                    <input
+                        type="number"
+                        value={formData.vote}
+                        name="vote"
+                        min="1"
+                        max="5"
+                        className="form-control"
+                        onChange={ setFieldValue} />
+                </div>
+                <div className=" d-flex justify-content-end">
+                    <button type="submit" className="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    )
+}
+
+export default ReviewForm;
