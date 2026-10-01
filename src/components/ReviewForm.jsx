@@ -41,7 +41,9 @@ function ReviewForm({ movie_id, reloadReviews }) {
     }
 
     return (
-        <div>
+        <div className="border border-success rounded">
+            <h4 className="text-success"><strong>Lascia una recensione</strong></h4>
+            <br />
             {
             !isValidForm
             && 
@@ -49,7 +51,7 @@ function ReviewForm({ movie_id, reloadReviews }) {
                 Data is not valid!
             </div>
             }
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} >
                 <div className="mb-3">
                     <label htmlFor="exampleInputEmail1" className="form-label">Author</label>
                     <input
@@ -68,7 +70,7 @@ function ReviewForm({ movie_id, reloadReviews }) {
                         className="form-control"
                         onChange={setFieldValue} />
                 </div>
-                <div className="mb-3">
+                <div className="mb-3 ">
                     <label htmlFor="exampleInputPassword1" className="form-label">Vote</label>
                     <input
                         type="number"
@@ -80,7 +82,7 @@ function ReviewForm({ movie_id, reloadReviews }) {
                         onChange={setFieldValue} />
                 </div>
                 <div className=" d-flex justify-content-end">
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <button type="submit" className="btn btn-success">Submit</button>
                 </div>
             </form>
         </div>

@@ -40,7 +40,7 @@ function MoviePage() {
                 </div>
             </header>
 
-            <section id="review" className="text-start">
+            <section id="review" className="text-start mx-3">
                 <header className="d-flex justify-content-between align-items-center mb-4">
                     <h4>Our community reviews</h4>
                     {movie && <span>Avarage vote: {movie.average_vote}</span>}
