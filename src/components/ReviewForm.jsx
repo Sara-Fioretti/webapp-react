@@ -5,33 +5,50 @@ function ReviewForm({ movie_id, reloadReviews }) {
     const apiUrl = `http://localhost:3000/api/movies/${movie_id}/reviews`
     const initialValues = { name: "Anonymous", text: "", vote: 1 }
     const [formData, setFormData] = useState(initialValues)
+    const [isValidForm, setIsValidForm] = useState(true)
+
+    //FUNZIONE per validare il form
+    const validateForm = () => {
+        if (!formData.text || !formData.name) return false;
+        if (isNaN(formData.vote) || formData.vote < 1 || formData.vote > 5) return false;
+        return true
+    }
 
     //FUNZIONE per onSubmit
     const handleSubmit = (e) => {
         e.preventDefault();
-         console.log("Tentativo di invio a:", apiUrl); // <--- AGGIUNGI QUESTO
-    console.log("Dati inviati:", formData); 
+        if(!validateForm()){
+            setIsValidForm(false)
+            return
+        }
         //Chiamata api
         axios.post(apiUrl, formData, { headers: { 'Content-Type': 'application/json' } })
             .then(() => {
                 setFormData(initialValues);
                 reloadReviews()
             })
-            .catch(err=>{
+            .catch(err => {
                 console.error(err)
             })
     }
-//FUNZIONE per onChange
-    const setFieldValue = (e)=>{
-        const {value, name}=e.target;
+    //FUNZIONE per onChange
+    const setFieldValue = (e) => {
+        const { value, name } = e.target;
         setFormData({
             ...formData,
-            [name]:value
+            [name]: value
         })
     }
-    
+
     return (
         <div>
+            {
+            !isValidForm
+            && 
+            <div className="alert alert-danger">
+                Data is not valid!
+            </div>
+            }
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="exampleInputEmail1" className="form-label">Author</label>
@@ -40,7 +57,7 @@ function ReviewForm({ movie_id, reloadReviews }) {
                         name="name"
                         value={formData.name}
                         className="form-control"
-                        onChange={setFieldValue } />
+                        onChange={setFieldValue} />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="exampleInputPassword1" className="form-label">Review</label>
@@ -49,7 +66,7 @@ function ReviewForm({ movie_id, reloadReviews }) {
                         name="text"
                         value={formData.text}
                         className="form-control"
-                        onChange={setFieldValue } />
+                        onChange={setFieldValue} />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="exampleInputPassword1" className="form-label">Vote</label>
@@ -60,7 +77,7 @@ function ReviewForm({ movie_id, reloadReviews }) {
                         min="1"
                         max="5"
                         className="form-control"
-                        onChange={ setFieldValue} />
+                        onChange={setFieldValue} />
                 </div>
                 <div className=" d-flex justify-content-end">
                     <button type="submit" className="btn btn-primary">Submit</button>
